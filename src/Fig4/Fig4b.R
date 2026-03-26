@@ -102,4 +102,4 @@ result$bootstrap_summary %>%
         hjust = 0
     )
 
-ggsave("figures/Fig4/Fig4b.pdf", width = 8, height = 8)
+ggsave("figures/Fig4/4b.pdf", width = 8, height = 8)

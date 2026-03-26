@@ -32,7 +32,7 @@ EnhancedVolcano(df_subtype,
     title = "TREC and subpopulation frequencies (CyTOF)",
     subtitle = ""
 ) + xlab("Spearman correlation")
-ggsave("figures/Fig2/Fig2a.pdf", height = 8, width = 8)
+ggsave("figures/Fig2/2a.pdf", height = 8, width = 8)
 
 # Fig 2b
 na_count <- data %>%
@@ -60,4 +60,4 @@ EnhancedVolcano(df_protein,
     subtitle = "",
     arrowheads = FALSE
 ) + xlab("Spearman correlation")
-ggsave("figures/Fig2/Fig2b.pdf", width = 8, height = 8)
+ggsave("figures/Fig2/2b.pdf", width = 8, height = 8)

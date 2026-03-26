@@ -20,7 +20,7 @@ data %>%
         ),
         method = "wilcox.test"
     )
-ggsave("figures/Fig4/Fig4c.pdf", width = 8, height = 6)
+ggsave("figures/Fig4/4c.pdf", width = 8, height = 6)
 
 # Fig 4d
 ggplot(data, aes(x = log10age, y = sjTREC)) +
@@ -29,4 +29,4 @@ ggplot(data, aes(x = log10age, y = sjTREC)) +
     theme_pubr() +
     ylab("log10 TREC")
 
-ggsave("figures/Fig4/Fig4d.pdf", width = 8, height = 6)
+ggsave("figures/Fig4/4d.pdf", width = 8, height = 6)

@@ -88,4 +88,4 @@ result$bootstrap_summary %>%
 
 rstatix::Anova(m) # add p values to the plot according to the ANOVA table
 
-ggsave("figures/Fig3/Fig3d.pdf", width = 8, height = 8)
+ggsave("figures/Fig3/3d.pdf", width = 8, height = 8)

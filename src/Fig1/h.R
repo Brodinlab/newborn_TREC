@@ -6,10 +6,8 @@ library(lme4)
 library(rstatix)
 
 data <- read_csv("data/TREC_KREC_combine_Baby_4.csv") %>%
-    filter(type == "Baby", age_bin != "CB") %>% # remove cord blood
+    filter(type == "Baby", baby_age > 0) %>% # remove cord blood
     mutate(log10age = log10(baby_age))
-
-# TREC
 m <- glm(log10TREC ~ log10age + SNP_merge + sex + mode_delivery + group, data = data)
 
 # Function to perform bootstrapped GLM
@@ -88,6 +86,6 @@ result$bootstrap_summary %>%
         panel.grid.major.y = element_blank()
     )
 
-rstatix::Anova(m) # add p values to the plot according to the ANOVA table
+rstatix::Anova(m) # the p values are calculated here.
 
-ggsave("figures/Fig1/Fig1e.pdf", width = 8, height = 8)
+ggsave("figures/Fig1/1h.pdf", width = 8, height = 8)
