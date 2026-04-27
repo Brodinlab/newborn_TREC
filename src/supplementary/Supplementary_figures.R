@@ -6,7 +6,7 @@ library(rstatix)
 library(ggplot2)
 library(ggpubr)
 library(tidyverse)
-library(patchwork) 
+library(patchwork)
 
 df <- read_csv("data/TREC_KREC_combine_Baby_4.csv")
 
@@ -313,27 +313,25 @@ ggsave(
   height = 9,
   units = "in"
 )
-#Supp 3c
-cor_test <- cor.test(df$log10TREC, df$TRANCE, method = "spearman", exact = FALSE)
-rho <- round(cor_test$estimate, 3)
-pval <- cor_test$p.value
-p_label <- ifelse(pval < 0.001, "p < 0.001", paste0("p = ", signif(pval, 3)))
-label_text <- paste0("Spearman rho = ", rho, "\n", p_label)
+# Supp 3c
+# cor_test <- cor.test(df$log10TREC, df$TRANCE, method = "spearman", exact = FALSE)
+# rho <- round(cor_test$estimate, 3)
+# pval <- cor_test$p.value
+# p_label <- ifelse(pval < 0.001, "p < 0.001", paste0("p = ", signif(pval, 3)))
+# label_text <- paste0("Spearman rho = ", rho, "\n", p_label)
 
-p1 <- ggplot(df, aes(x = log10TREC, y = TRANCE, color = group)) +
-  geom_point(size = 3, alpha = 0.7) +
+p1 <- ggplot(df, aes(x = log10TREC, y = TRANCE)) +
+  geom_point(aes(color = group), size = 3, alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE, color = "black") + # droite globale
-  scale_color_manual(values = c("Preterm" = "orange", "Term" = "purple")) +
-  annotate("text",
-    x = min(df$log10TREC, na.rm = TRUE),
-    y = max(df$TRANCE, na.rm = TRUE),
-    label = label_text,
-    hjust = 0, size = 5, fontface = "bold"
+  stat_cor(
+    method = "spearman", label.x = min(df_term$log10TREC, na.rm = TRUE),
+    label.y = max(df$TRANCE, na.rm = TRUE), size = 5
   ) +
+  scale_color_manual(values = c("Preterm" = "orange", "Term" = "purple")) +
   labs(
     title = "Correlation of TRANCE, vs log10TREC",
     x = "log10TREC",
-    y = "TRANCE,",
+    y = "TRANCE",
   ) +
   theme_minimal() +
   theme(legend.position = "none")
@@ -434,16 +432,22 @@ ggsave(
   height = 9,
   units = "in"
 )
-#Supp 3g
-p <- ggplot(df, aes(x = log10TREC, y = TRANCE)) +
-  geom_point(size = 3, alpha = 0.7) + 
+# Supp 3g
+df_ste <- df %>%
+  filter(steroids != "steroids")
+
+p <- ggplot(df_ste, aes(x = log10TREC, y = TRANCE)) +
+  geom_point(size = 3, alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE, color = "black") +
-  stat_cor(method = "spearman", label.x = min(df_term$log10TREC, na.rm = TRUE),
-           label.y = max(df$TRANCE, na.rm = TRUE), size = 5) +
-  
-  labs(title = "Scatter plot of RANKL vs log10sjTREC",
-       x = "log10TREC",
-       y = "RANKL") +
+  stat_cor(
+    method = "spearman", label.x = min(df$log10TREC, na.rm = TRUE),
+    label.y = max(df$TRANCE, na.rm = TRUE), size = 5
+  ) +
+  labs(
+    title = "Scatter plot of RANKL vs log10sjTREC",
+    x = "log10TREC",
+    y = "RANKL"
+  ) +
   theme_minimal()
 ggsave(
   filename = "figures/supplementary/Supp3g.pdf",
@@ -452,16 +456,19 @@ ggsave(
   height = 9,
   units = "in"
 )
-#Supp 3h
-p <- ggplot(df, aes(x = CD4T, y = TRANCE)) +
-  geom_point(size = 3, alpha = 0.7) + 
+# Supp 3h
+p <- ggplot(df_ste, aes(x = CD4T, y = TRANCE)) +
+  geom_point(size = 3, alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE, color = "black") +
-  stat_cor(method = "spearman", label.x = min(df_term$log10TREC, na.rm = TRUE),
-           label.y = max(df$TRANCE, na.rm = TRUE), size = 5) +
-  
-  labs(title = "Scatter plot of RANKL vs CD4T",
-       x = "CD4T",
-       y = "RANKL") +
+  stat_cor(
+    method = "spearman", label.x = min(df$log10TREC, na.rm = TRUE),
+    label.y = max(df$TRANCE, na.rm = TRUE), size = 5
+  ) +
+  labs(
+    title = "Scatter plot of RANKL vs CD4T",
+    x = "CD4T",
+    y = "RANKL"
+  ) +
   theme_minimal()
 ggsave(
   filename = "figures/supplementary/Supp3h.pdf",
