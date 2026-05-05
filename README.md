@@ -1,8 +1,8 @@
 # Newborn_TREC
-**Title**: Thymic output in human newborns is regulated by environmental exposures and a common genetic variant within the TCRD locus
+**Title**: Thymic output in human newborns is shaped by environmental exposures and a common TCRD genetic variant
 
 ## Description
-This repository contains scripts and data needed to reproduce the figures in the paper [*Thymic output in human newborns is regulated by environmental exposures and a common genetic variant within the TCRD locus*](~~add link here~~).
+This repository contains scripts and data needed to reproduce the figures in the paper [*Thymic output in human newborns is shaped by environmental exposures and a common TCRD genetic variant*](https://rupress.org/jhi/article/2/4/e20260003/282298/Thymic-output-in-human-newborns-is-shaped-by).
 
 ## Repository Structure
 - **`data/`**: Contains all processed tables required for reproducing the figures in the paper.
